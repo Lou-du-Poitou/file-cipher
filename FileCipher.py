@@ -10,7 +10,8 @@
 # --- --- --- #
 import tkinter as tk
 from tkinter.font import Font
-from sys import executable, argv
+from sys import argv
+from os import path
 from tkinter import messagebox, filedialog, ttk
 
 import hashlib
@@ -20,10 +21,12 @@ import vencryption
 # --- --- --- #
 
 # --- --- --- #
+icon = path.abspath(path.join(path.dirname(__file__), "icon/FileCipher.ico"))
+
 app = tk.Tk()
 app.geometry("325x75")
 app.title("FileCipher")
-app.iconbitmap(executable)
+app.iconbitmap(icon)
 app.resizable(False, False)
 app.attributes("-topmost", True)
 app.config(background="#CEEACC")
@@ -40,6 +43,7 @@ def set_file(file:str=None):
     if file != "" and file != None:
         cd.set(file)
         file_name.set(file.split("/")[-1])
+    print(file)
 
 def setoptions():
     # --- --- --- #
@@ -68,7 +72,7 @@ def setoptions():
                     load.stop()
                     run.set(False)
                     messagebox.showinfo("Info", "Your file has just been fully encrypted!")
-                except Exception as e:
+                except:
                     load.stop()
                     run.set(False)
                     messagebox.showerror("Error", "An error has occurred !")
@@ -97,7 +101,7 @@ def setoptions():
                     load.stop()
                     run.set(False)
                     messagebox.showinfo("Info", "Your file has just been fully decrypted!")
-                except Exception as e:
+                except:
                     load.stop()
                     run.set(False)
                     messagebox.showerror("Error", "An error has occurred !")
@@ -108,7 +112,7 @@ def setoptions():
         clone.geometry("200x120")
         clone.grab_set()
         clone.resizable(False, False)
-        clone.iconbitmap(executable)
+        clone.iconbitmap(icon)
         clone.attributes("-topmost", True)
         clone.config(background="#CEEACC")
         # --- --- --- #
@@ -165,7 +169,7 @@ path.pack(side=tk.LEFT, padx=(5,5), pady=(5,1), fill=tk.X, anchor=tk.N)
 # --- --- --- #
 try:
     script, file = argv
-    set_file(file)
+    set_file(file.replace("\\", "/"))
 except:
     pass
 # --- --- --- #
@@ -174,6 +178,6 @@ except:
 app.mainloop()
 # --- --- --- #
 
-# Text Editor - Made by V / Lou du Poitou (c) 2024 - V.2 #
+# FileCipher - Made by V / Lou du Poitou (c) 2024 - V.1 #
 ## Vencryption (c) 2024 - Made by V / Lou du Poitou ##
 ## V / Lou du Poitou : https://encryption.nexcord.pro/lou-du-poitou ##
